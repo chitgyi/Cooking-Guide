@@ -1,7 +1,7 @@
 # Cooking-Guide
 
 ## Screenshots
-![Home Page](images/screensot/home.jpg?raw=true "Home Page")
+![Home Page](images/screenshot/home.jpg)
 
 ## Getting Started
 
