@@ -1,7 +1,7 @@
 # Cooking-Guide
 
 ## Screenshots
-![Home Page](images/screenshot/home.jpg)
+<img src="images/screenshot/home.jpg" width="320"> 
 
 ## Getting Started
 
