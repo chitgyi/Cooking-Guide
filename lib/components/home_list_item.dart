@@ -1,9 +1,11 @@
 import 'dart:math';
+import 'package:cooking_guide/components/view_itme.dart';
+import 'package:cooking_guide/models/post.dart';
 import 'package:flutter/material.dart';
 
 class FoodItem extends StatelessWidget {
-  final String title, url;
-  FoodItem({this.title, this.url});
+  final Post post;
+  FoodItem(this.post);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,11 +19,7 @@ class FoodItem extends StatelessWidget {
           onTap: () {
             Navigator.push(context, 
             MaterialPageRoute(builder: (context) {
-              return Scaffold(
-                appBar: AppBar(
-                  title: Text("New"),
-                ),
-              );
+              return ItemView(post);
             }));
           },
           child: Row(
@@ -31,7 +29,7 @@ class FoodItem extends StatelessWidget {
                     topLeft: Radius.circular(5.0),
                     bottomLeft: Radius.circular(5.0)),
                 child: Image.network(
-                  url,
+                  post.url,
                   fit: BoxFit.fill,
                   width: 150,
                   height: 130,
@@ -40,14 +38,21 @@ class FoodItem extends StatelessWidget {
               Container(
                   width: 190,
                   padding: EdgeInsets.all(10),
-                  child: Text(
-                    title,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
-                    textAlign: TextAlign.justify,
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        post.title,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 3,
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white,
+                        ),
+                      )
+                    ],
                   ))
             ],
           ),

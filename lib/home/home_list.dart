@@ -1,7 +1,7 @@
 import 'dart:math';
-
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cooking_guide/components/home_list_item.dart';
+import 'package:cooking_guide/components/recent.dart';
+import 'package:cooking_guide/components/recommanded.dart';
 import 'package:flutter/material.dart';
 
 class HomeList extends StatefulWidget {
@@ -46,9 +46,6 @@ class _HomeListState extends State<HomeList> {
           },
         ).toList(),
       ),
-      // SizedBox(
-      //   height: 20,
-      // ),
       Container(
         padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
         child: Text("Categories",
@@ -64,91 +61,28 @@ class _HomeListState extends State<HomeList> {
               .toList(),
         ),
       ),
-      SizedBox(
-        height: 10,
-      ),
-      Container(
-        padding: EdgeInsets.symmetric(horizontal: 5.0),
-        child: Row(
-          children: <Widget>[
-            Text(
-              "Recommanded For You",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
-            Spacer(),
-            RaisedButton(
-              child: Text(
-                "More",
-                style: TextStyle(color: Colors.white),
-              ),
-              onPressed: () {},
-              color: Colors.pink,
-            )
-          ],
-        ),
-      ),
-      Container(
-        height: 130,
-        child: ListView(
-          scrollDirection: Axis.horizontal,
-          children: imgList
-              .map((url) => FoodItem(
-                  title:
-                      "ကြက်သားကြော်နည်းနှင့် မုန့်မျိုးစုံ၊ ၀က်သားကြော်နည်းနှင့် အကင်များ",
-                  url: url))
-              .toList(),
-        ),
-      ),
-      SizedBox(
-        height: 10,
-      ),
-      Container(
-        padding: EdgeInsets.symmetric(horizontal: 5.0),
-        child: Row(
-          children: <Widget>[
-            Text(
-              "Recent Posts",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
-            Spacer(),
-            RaisedButton(
-              child: Text(
-                "More",
-                style: TextStyle(color: Colors.white),
-              ),
-              onPressed: () {},
-              color: Colors.indigo,
-            )
-          ],
-        ),
-      ),
-      Container(
-        height: 130,
-        child: ListView(
-          scrollDirection: Axis.horizontal,
-          children: imgList
-              .map((url) => FoodItem(
-                  title:
-                      "ကြက်သားကြော်နည်းနှင့် မုန့်မျိုးစုံ၊ ၀က်သားကြော်နည်းနှင့် အကင်များ",
-                  url: url))
-              .toList(),
-        ),
-      ),
+      Recommded(),
+      Recent()
     ]);
   }
 
   Widget _listItem({title, url}) {
-    return Container(
-        padding: EdgeInsets.symmetric(horizontal: 10.0),
-        decoration: BoxDecoration(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal:5.0),
+      child: Material(
+        borderRadius: BorderRadius.circular(5.0),
+        color: Colors.primaries[Random().nextInt(8)],
+          child: InkWell(
             borderRadius: BorderRadius.circular(5.0),
-            color: Colors.accents[Random().nextInt(8)]),
-        margin: EdgeInsets.symmetric(horizontal: 5.0),
-        child: Center(
-          child: Text(
-            title,
-            style: TextStyle(color: Colors.white),
-          ),
-        ));
+            onTap: (){},
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                title,
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          )),
+    );
   }
 }

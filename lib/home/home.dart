@@ -1,3 +1,4 @@
+import 'package:cooking_guide/discover/discover.dart';
 import 'package:cooking_guide/home/home_list.dart';
 import 'package:cooking_guide/services/auth.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -10,7 +11,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final titles = ["Cooking Guide", "Feed", "Favorite", "Guide", "Profile"];
+  final titles = ["Cooking Guide", "Discover", "Favorite", "Guide", "Feed"];
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class _HomeState extends State<Home> {
               onPressed: () {},
             ),
             IconButton(
-              icon: Icon(Icons.add_to_photos),
+              icon: Icon(Icons.person_pin_circle),
               onPressed: () async {
                 AuthService().signOut();
               },
@@ -57,7 +58,7 @@ class _HomeState extends State<Home> {
               color: Colors.white,
             ),
             Icon(
-              Icons.person_pin_circle,
+              Icons.rss_feed,
               size: 30,
               color: Colors.white,
             ),
@@ -71,7 +72,7 @@ class _HomeState extends State<Home> {
         return HomeList();
         break;
       case 1:
-        return Text("Screen $currentIndex");
+        return Discover();
         break;
       case 2:
         return Text("Screen $currentIndex");

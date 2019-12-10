@@ -1,4 +1,3 @@
-import 'package:cooking_guide/home/home.dart';
 import 'package:cooking_guide/models/user.dart';
 import 'package:cooking_guide/services/auth.dart';
 import 'package:cooking_guide/wrapper.dart';
