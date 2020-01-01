@@ -7,6 +7,6 @@ class Post {
   Post.fromData(DocumentSnapshot value)
       : id = value.documentID,
         url = value.data['url'],
-        title = value.data['postTitle'],
-        body = value.data['postBody'];
+        title = value.data['title'],
+        body = value.data['body'];
 }

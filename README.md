@@ -1,5 +1,11 @@
 # Cooking-Guide
 
+## Objectives
+
+- first
+- second
+- third
+
 ## Screenshots
 <img src="images/screenshot/home.jpg" width="320"> 
 
@@ -9,6 +15,6 @@
 
 > cd Cooking-Guide
 
-> flutter get packages
+> flutter pub get
 
 > flutter run android(or)ios

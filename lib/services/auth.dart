@@ -30,7 +30,7 @@ class AuthService {
       FirebaseAuth.instance.signInWithCredential(credential).then((onValue) {
         userFromFirebase(onValue.user);
       });
-    });
+    }).catchError((onError){});
   }
 
   Future signInAno() async {

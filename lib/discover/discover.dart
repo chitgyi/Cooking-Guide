@@ -32,7 +32,7 @@ class Discover extends StatelessWidget {
             ),
             Expanded(
               child: Text(
-                  "${vegetables[index]['title']}\nCalories ${vegetables[index]['calories']}"),
+                  "${vegetables[index]['title']}\n${vegetables[index]['calories']}"),
             )
           ],
         ),

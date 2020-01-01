@@ -1,19 +1,24 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cooking_guide/models/post.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:cooking_guide/models/user.dart';
 
 class ItemView extends StatelessWidget {
   final Post post;
-  
+  User user;
   ItemView(this.post);
+
   Widget build(BuildContext context) {
+    user = Provider.of<User>(context);
     return Scaffold(
       body: SingleChildScrollView(
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Toolbar(
-            postId: "123",
-            url: post.url,
+            user: user,
+            post: post,
           ),
           Text(
             post.title,
@@ -30,15 +35,44 @@ class ItemView extends StatelessWidget {
   }
 }
 
-class Toolbar extends StatelessWidget {
-  final String url, postId;
-  Toolbar({this.url, this.postId});
+class Toolbar extends StatefulWidget {
+  final User user;
+  final Post post;
+  Toolbar({this.user, this.post});
+
+  @override
+  _ToolbarState createState() => _ToolbarState();
+}
+
+class _ToolbarState extends State<Toolbar> {
+  final firestore = Firestore.instance;
+  bool isSaved = false;
+  isSavedPost() async {
+    DocumentSnapshot snapshot =
+        await firestore.collection("saved").document(widget.post.id).get();
+
+    if (snapshot.data != null) {
+      if (snapshot.data[widget.user.uid] == "true") {
+        isSaved = true;
+      }
+    } else {
+      isSaved = false;
+    }
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    isSavedPost();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
         Image.network(
-          url,
+          widget.post.url,
           fit: BoxFit.fill,
           loadingBuilder: (BuildContext context, Widget child,
               ImageChunkEvent loadingProgress) {
@@ -82,12 +116,21 @@ class Toolbar extends StatelessWidget {
                       child: InkWell(
                         splashColor: Colors.black,
                         borderRadius: BorderRadius.circular(25.0),
-                        onTap: () {},
+                        onTap: () async {
+                          bool tmp = isSaved;
+                          setState(() {
+                            isSaved = !tmp;
+                          });
+                          await firestore
+                              .collection("saved")
+                              .document(widget.post.id)
+                              .updateData({widget.user.uid: isSaved.toString()});
+                        },
                         child: Container(
                           width: 50,
                           height: 50,
                           child: Icon(
-                            Icons.favorite_border,
+                            isSaved ? Icons.favorite : Icons.favorite_border,
                             color: Colors.white,
                           ),
                         ),

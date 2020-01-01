@@ -1,4 +1,6 @@
+import 'package:cooking_guide/components/FoodGroup.dart';
 import 'package:cooking_guide/components/home_list_item.dart';
+import 'package:cooking_guide/models/foodtype.dart';
 import 'package:cooking_guide/models/post.dart';
 import 'package:cooking_guide/services/data.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +25,14 @@ class Recent extends StatelessWidget {
                   "More",
                   style: TextStyle(color: Colors.white),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext cxt) => FoodGroup(FoodMenu(
+                              title: "Recent Posts",
+                              foodType: FoodType.Type4))));
+                },
                 color: Colors.pink,
               )
             ],
@@ -36,15 +45,16 @@ class Recent extends StatelessWidget {
               }
               if (posts.hasData) {
                 return Container(
-                  height: 130,
+                  height: 145,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
-                    children:
-                        posts.data.map((value) => FoodItem(value)).toList(),
+                    children: posts.data
+                        .map((value) => FoodItem(value, 340.0))
+                        .toList(),
                   ),
                 );
               } else {
-                return Text("no Data");
+                return Center(child: Text("No Food Avaliable!"));
               }
             },
           )

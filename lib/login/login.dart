@@ -37,7 +37,11 @@ class Login extends StatelessWidget {
                   ),
                 ),
                 onTap: () async {
-                  await AuthService().signInWithFb();
+                  print("loading>>>");
+                  await AuthService().signInWithFb().catchError((onError) {
+                    print("ERror");
+                  });
+                  print("complete>>>");
                 },
               ),
             ),
