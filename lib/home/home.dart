@@ -6,9 +6,7 @@ import 'package:cooking_guide/news/new.dart';
 import 'package:cooking_guide/profile/profile.dart';
 import 'package:cooking_guide/saved/saved.dart';
 import 'package:cooking_guide/search/search.dart';
-import 'package:cooking_guide/services/auth.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
