@@ -7,7 +7,12 @@ class PostData {
   Firestore _firestore = Firestore.instance;
   Future<List<Post>> getRecom() async {
     List<Post> post;
-    await _firestore.collection("posts").getDocuments().then((onValue) {
+    await _firestore
+        .collection("posts")
+        .orderBy("body")
+        .limit(8)
+        .getDocuments()
+        .then((onValue) {
       post = onValue.documents.map((f) => Post.fromData(f)).toList();
     });
     return post;
@@ -15,7 +20,12 @@ class PostData {
 
   Future<List<Post>> getRecent() async {
     List<Post> post;
-    await _firestore.collection("posts").getDocuments().then((onValue) {
+    await _firestore
+        .collection("posts")
+        .orderBy("date")
+        .limit(8)
+        .getDocuments()
+        .then((onValue) {
       post = onValue.documents.map((f) => Post.fromData(f)).toList();
     });
     return post;

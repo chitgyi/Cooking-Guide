@@ -13,7 +13,7 @@ class AuthService {
     return _auth.onAuthStateChanged.map(userFromFirebase);
   }
 
-  Future signInWithEmail({email: String, password: String}) async {
+  Future signInWithEmail({String email, String password}) async {
     try {
       AuthResult result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
@@ -30,7 +30,7 @@ class AuthService {
       FirebaseAuth.instance.signInWithCredential(credential).then((onValue) {
         userFromFirebase(onValue.user);
       });
-    }).catchError((onError){});
+    }).catchError((onError) {});
   }
 
   Future signInAno() async {
@@ -44,6 +44,13 @@ class AuthService {
 
   Future signOut() async {
     try {
+      var fb = FacebookLogin();
+      var fbLogged = await fb.isLoggedIn;
+
+      if (fbLogged) {
+        await fb.logOut();
+      }
+
       return await _auth.signOut();
     } catch (e) {
       return null;

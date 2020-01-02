@@ -2,9 +2,13 @@ import 'package:cooking_guide/Guide/guide.dart';
 import 'package:cooking_guide/discover/calc_calories.dart';
 import 'package:cooking_guide/discover/discover.dart';
 import 'package:cooking_guide/home/home_list.dart';
+import 'package:cooking_guide/news/new.dart';
+import 'package:cooking_guide/profile/profile.dart';
 import 'package:cooking_guide/saved/saved.dart';
+import 'package:cooking_guide/search/search.dart';
 import 'package:cooking_guide/services/auth.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -15,26 +19,26 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final titles = ["Cooking Guide", "Discover", "Favorite", "Guide", "Feed"];
-  final pages = [
-    HomeList(),
-    Discover(),
-    Saved(),
-    Guide(),
-    Text("Feed")
-  ];
+  final pages = [HomeList(), Discover(), Saved(), Guide(), New()];
   int currentIndex = 0;
+
+ 
 
   _actions() {
     if (this.currentIndex == 0) {
       return <Widget>[
         IconButton(
           icon: Icon(Icons.search),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (cxt) => Search()));
+          },
         ),
         IconButton(
           icon: Icon(Icons.person_pin_circle),
-          onPressed: () async {
-            AuthService().signOut();
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (cxt) => Profile()));
           },
         ),
       ];

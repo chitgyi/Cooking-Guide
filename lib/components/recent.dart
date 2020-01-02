@@ -38,7 +38,7 @@ class Recent extends StatelessWidget {
             ],
           ),
           FutureBuilder(
-            future: _data.getRecom(),
+            future: _data.getRecent(),
             builder: (BuildContext context, AsyncSnapshot<List<Post>> posts) {
               if (posts.connectionState == ConnectionState.waiting) {
                 return Text("Waiting");

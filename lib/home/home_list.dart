@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cooking_guide/components/recent.dart';
 import 'package:cooking_guide/components/recommanded.dart';
+import 'package:cooking_guide/components/view_new.dart';
 import 'package:cooking_guide/home/catego_list.dart';
 import 'package:cooking_guide/models/foodtype.dart';
 import 'package:cooking_guide/models/post.dart';
@@ -35,7 +36,12 @@ class HomeList extends StatelessWidget {
                                     fit: BoxFit.cover)),
                             child: InkWell(
                               borderRadius: BorderRadius.circular(5.0),
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (cxt) => ViewNew(news)));
+                              },
                             ),
                           ),
                           Container(
