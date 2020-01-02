@@ -77,7 +77,16 @@ class _ProfileState extends State<Profile> {
                       children: <Widget>[
                         Material(
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              AwesomeDialog(
+                                      context: context,
+                                      dialogType: DialogType.INFO,
+                                      animType: AnimType.BOTTOMSLIDE,
+                                      desc: 'V-IT (Group III Project)\n@Mg Chit Ye Aung(Developer)\n@Mg Kyaw Min Tun(Database)\n@Mg Sithu Lwin(UI Design)',
+                                      tittle: "About",
+                                      btnOkOnPress: () {})
+                                  .show();
+                            },
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(

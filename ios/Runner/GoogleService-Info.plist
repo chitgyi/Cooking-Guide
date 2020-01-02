@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>11293968396-a1lq2qao9m88l8gvp932u0eecb07gj8i.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.11293968396-a1lq2qao9m88l8gvp932u0eecb07gj8i</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBvliRb8VVoKw1x4SFSjZLvQXOUqPqp-uA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>11293968396</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.cookingGuide</string>
+	<key>PROJECT_ID</key>
+	<string>cooking-guide-1f2c6</string>
+	<key>STORAGE_BUCKET</key>
+	<string>cooking-guide-1f2c6.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:11293968396:ios:c925b3c2de203ff19ec629</string>
+	<key>DATABASE_URL</key>
+	<string>https://cooking-guide-1f2c6.firebaseio.com</string>
+</dict>
+</plist>
