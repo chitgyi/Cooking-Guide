@@ -9,7 +9,7 @@
 //   {"title": "သင့်အတွက်", "type": FoodType.TYPE6},
 //   {"title": "မကြာသေးမီက", "type": FoodType.TYPE7}
 // ];
-enum FoodType { Type1, Type2, Type3, Type4, Type5, Type6, Type7 }
+enum FoodType { Type1, Type2, Type3, Type4, Type5, Type6, Type7, Type8, Type9 }
 
 class FoodMenu {
   final FoodType foodType;

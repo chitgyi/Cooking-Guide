@@ -6,17 +6,29 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   User userFromFirebase(FirebaseUser user) {
-    return user == null ? null : User(user.uid);
+    if (user != null) {
+      if (user.providerData[1].providerId.toString() == "facebook.com") {
+        return User(user.uid);
+      } else {
+        if (user.isEmailVerified) {
+          return User(user.uid);
+        } else {
+          return null;
+        }
+      }
+    }
+    return null;
   }
 
   Stream<User> get user {
     return _auth.onAuthStateChanged.map(userFromFirebase);
   }
 
-  Future signInWithEmail({String email, String password}) async {
+  Future<User> signInWithEmail({String email, String password}) async {
     try {
       AuthResult result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
+      print(result.user.providerId);
       return userFromFirebase(result.user);
     } catch (e) {
       return null;
@@ -54,6 +66,21 @@ class AuthService {
       return await _auth.signOut();
     } catch (e) {
       return null;
+    }
+  }
+
+  Future<bool> signUpWithEmail(
+      {String name, String email, String password}) async {
+    try {
+      AuthResult authResult = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      UserUpdateInfo userUpdateInfo = UserUpdateInfo();
+      userUpdateInfo.displayName = name;
+      await authResult.user.sendEmailVerification();
+      authResult.user.updateProfile(userUpdateInfo);
+      return true;
+    } catch (e) {
+      return false;
     }
   }
 }

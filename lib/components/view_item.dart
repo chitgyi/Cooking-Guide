@@ -121,41 +121,47 @@ class _ToolbarState extends State<Toolbar> {
                           setState(() {
                             isSaved = !tmp;
                           });
+
                           await firestore
                               .collection("saved")
                               .document(widget.post.id)
-                              .updateData({widget.user.uid: isSaved.toString()});
+                              .setData(
+                                  {widget.user.uid: isSaved.toString()},merge: true);
                         },
                         child: Container(
                           width: 50,
                           height: 50,
                           child: Icon(
+                            
                             isSaved ? Icons.favorite : Icons.favorite_border,
+                            size: 30,
                             color: Colors.white,
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: 5.0,
-                    ),
-                    Material(
-                      shape: CircleBorder(),
-                      color: Colors.black.withOpacity(0.3),
-                      child: InkWell(
-                        splashColor: Colors.black,
-                        borderRadius: BorderRadius.circular(25.0),
-                        onTap: () {},
-                        child: Container(
-                          width: 50,
-                          height: 50,
-                          child: Icon(
-                            Icons.feedback,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
+                    // SizedBox(
+                    //   width: 5.0,
+                    // ),
+                    // Material(
+                    //   shape: CircleBorder(),
+                    //   color: Colors.black.withOpacity(0.3),
+                    //   child: InkWell(
+                    //     splashColor: Colors.black,
+                    //     borderRadius: BorderRadius.circular(25.0),
+                    //     onTap: () {
+                    //       firestore.collection('feedback').add({"feedback"})
+                    //     },
+                    //     child: Container(
+                    //       width: 50,
+                    //       height: 50,
+                    //       child: Icon(
+                    //         Icons.feedback,
+                    //         color: Colors.white,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               )

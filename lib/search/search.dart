@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cooking_guide/components/home_list_item.dart';
-import 'package:cooking_guide/components/view_item.dart';
 import 'package:cooking_guide/models/post.dart';
 import 'package:flutter/material.dart';
 

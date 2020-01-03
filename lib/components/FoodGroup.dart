@@ -9,6 +9,14 @@ class FoodGroup extends StatelessWidget {
   final PostData _data = PostData();
   FoodGroup(this.menu);
 
+  _retriveData(){
+    if(menu.foodType == FoodType.Type8){
+      return _data.getByRecom();
+    }else if(menu.foodType == FoodType.Type9){
+      return _data.getByRecent();
+    }
+    return _data.getByType(menu);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +25,7 @@ class FoodGroup extends StatelessWidget {
       ),
       body: Container(
         child: FutureBuilder(
-          future: _data.getByType(menu),
+          future: _retriveData(),
           builder: (BuildContext context, AsyncSnapshot<List<Post>> posts) {
             if (posts.connectionState == ConnectionState.waiting) {
               return Text("Loading");

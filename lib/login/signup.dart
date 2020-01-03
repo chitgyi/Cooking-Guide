@@ -1,16 +1,15 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cooking_guide/components/progress.dart';
-import 'package:cooking_guide/login/forget.dart';
-import 'package:cooking_guide/login/signup.dart';
 import 'package:cooking_guide/services/auth.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:flutter/material.dart';
 
-class Login extends StatelessWidget {
+class SignUp extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
+  final _cpassController = TextEditingController();
+  final _nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,20 +37,36 @@ class Login extends StatelessWidget {
               ),
             ),
             Center(
-                child: Text("Cooking Guide Admin",
+                child: Text("Cooking Guide",
                     style:
                         TextStyle(fontWeight: FontWeight.w500, fontSize: 16))),
             SizedBox(
               height: 60,
             ),
             Text(
-              "Login",
+              "Sign Up",
               style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
             ),
             SizedBox(
               height: 8.0,
             ),
             TextField(
+              controller: _nameController,
+              decoration: InputDecoration(
+                  prefixIcon: Icon(
+                    Icons.mail,
+                  ),
+                  labelText: "Name",
+                  border: OutlineInputBorder()),
+            ),
+            SizedBox(
+              height: 5.0,
+            ),
+            TextFormField(
+              validator: (str) {
+                print(str);
+                return str;
+              },
               controller: _emailController,
               decoration: InputDecoration(
                   prefixIcon: Icon(
@@ -74,6 +89,20 @@ class Login extends StatelessWidget {
               ),
               obscureText: true,
             ),
+            SizedBox(
+              height: 5.0,
+            ),
+            TextField(
+              controller: _cpassController,
+              decoration: InputDecoration(
+                prefixIcon: Icon(
+                  Icons.lock,
+                ),
+                border: OutlineInputBorder(),
+                labelText: "Confirm Password",
+              ),
+              obscureText: true,
+            ),
             Container(
               width: double.infinity,
               height: 50,
@@ -81,25 +110,36 @@ class Login extends StatelessWidget {
               child: RaisedButton(
                 color: Colors.teal,
                 child: Text(
-                  "Login",
+                  "SignUp",
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () async {
                   if (!_isValided()) return;
                   loading.show();
-                  var user = await AuthService().signInWithEmail(
+                  bool user = await AuthService().signUpWithEmail(
+                      name: _nameController.text,
                       email: _emailController.text,
                       password: _passController.text);
                   loading.hide();
 
-                  if (user == null) {
+                  if (!user) {
                     AwesomeDialog(
                             context: context,
                             dialogType: DialogType.ERROR,
                             animType: AnimType.SCALE,
                             tittle: 'Error',
                             desc:
-                                'Try again! Your email or password is incorrected.',
+                                'Your e-mail is already exist. Please verify e-mail!',
+                            dismissOnTouchOutside: false,
+                            btnOkOnPress: () {})
+                        .show();
+                  } else {
+                    AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.SUCCES,
+                            animType: AnimType.SCALE,
+                            tittle: 'Success',
+                            desc: 'Check your e-mail inbox and verify it!',
                             dismissOnTouchOutside: false,
                             btnOkOnPress: () {})
                         .show();
@@ -107,58 +147,19 @@ class Login extends StatelessWidget {
                 },
               ),
             ),
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (cxt) => Forget()));
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(3.0),
-                child: Text(
-                  "Forget password?",
-                ),
-              ),
-            ),
-            Center(child: Text("OR")),
-            Container(
-                width: double.infinity,
-                height: 50,
-                margin: EdgeInsets.only(top: 10),
-                child: RaisedButton(
-                    onPressed: () async {
-                      await AuthService().signInWithFb();
-                    },
-                    color: Colors.blue,
-                    child: Row(
-                      children: <Widget>[
-                        Icon(
-                          FontAwesomeIcons.facebookF,
-                          color: Colors.white,
-                          size: 30,
-                        ),
-                        Text(
-                          "Login with Facebook",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ],
-                    ))),
             SizedBox(
               height: 20,
             ),
             Center(
-              child: Column(
-                children: <Widget>[
-                  Text("Hasn't an account?"),
-                  InkWell(
-                    child: Text("Create Account"),
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (cxt) => SignUp()));
-                    },
-                  )
-                ],
-              ),
-            ),
+                child: Column(children: <Widget>[
+              Text("Has alredy an account?"),
+              InkWell(
+                child: Text("LOGIN"),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              )
+            ]))
           ],
         ),
       ),
@@ -166,15 +167,44 @@ class Login extends StatelessWidget {
   }
 
   _isValided() {
+    if (_nameController.text.length < 3) {
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text("Your name is too short. Please enter more characters!"),
+      ));
+      return false;
+    }
     if (_emailController.text.length < 1) {
       _scaffoldKey.currentState.showSnackBar(SnackBar(
         content: Text("E-mail filed is required!"),
       ));
       return false;
+    } else {
+      Pattern pattern =
+          r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+      RegExp regex = new RegExp(pattern);
+      if (!regex.hasMatch(_emailController.text)) {
+        _scaffoldKey.currentState.showSnackBar(SnackBar(
+          content: Text("Please enter valid e-mail!"),
+        ));
+        return false;
+      }
     }
-    if (_passController.text.length < 1) {
+    if (_passController.text.length < 6) {
       _scaffoldKey.currentState.showSnackBar(SnackBar(
-        content: Text("Password filed is required!"),
+        content: Text("Please enter 6 characters and more in Password Field!"),
+      ));
+      return false;
+    }
+    if (_cpassController.text.length < 6) {
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+        content:
+            Text("Please enter 6 characters and more in Confirm Password!"),
+      ));
+      return false;
+    }
+    if (_passController.text.toString() != _cpassController.text.toString()) {
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text("Your password didn't match!"),
       ));
       return false;
     }

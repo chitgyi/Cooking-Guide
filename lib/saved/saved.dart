@@ -46,7 +46,7 @@ class _SavedPostState extends State<SavedPost> {
                       docs[index], MediaQuery.of(context).size.width);
                 },
               )
-            : Text("No Saved Posts!"),
+            : Center(child: Text("No Saved Posts!")),
       ),
     );
   }

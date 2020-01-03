@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cooking_guide/models/foodtype.dart';
 import 'package:cooking_guide/models/post.dart';
-import 'package:cooking_guide/models/user.dart';
 
 class PostData {
   Firestore _firestore = Firestore.instance;
@@ -22,7 +21,7 @@ class PostData {
     List<Post> post;
     await _firestore
         .collection("posts")
-        .orderBy("date")
+        .orderBy("date", descending: true)
         .limit(8)
         .getDocuments()
         .then((onValue) {
@@ -51,17 +50,27 @@ class PostData {
     return post;
   }
 
-  Future<DocumentSnapshot> getSaved(User user) async {
-    var docs = await _firestore
-        .collection("saved")
-        .where(user.uid, isEqualTo: "true")
-        .getDocuments();
+  Future<List<Post>> getByRecent() async {
+    List<Post> post;
+    await _firestore
+        .collection("posts")
+        .orderBy("date", descending: true)
+        .getDocuments()
+        .then((onValue) {
+      post = onValue.documents.map((f) => Post.fromData(f)).toList();
+    });
+    return post;
+  }
 
-    for (int i = 0; i < docs.documents.length; i++) {
-      _firestore
-          .collection("posts")
-          .document(docs.documents[i].documentID)
-          .snapshots();
-    }
+  Future<List<Post>> getByRecom() async {
+    List<Post> post;
+    await _firestore
+        .collection("posts")
+        .orderBy("body")
+        .getDocuments()
+        .then((onValue) {
+      post = onValue.documents.map((f) => Post.fromData(f)).toList();
+    });
+    return post;
   }
 }

@@ -31,7 +31,7 @@ class Recent extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (BuildContext cxt) => FoodGroup(FoodMenu(
                               title: "Recent Posts",
-                              foodType: FoodType.Type4))));
+                              foodType: FoodType.Type9))));
                 },
                 color: Colors.pink,
               )
@@ -41,7 +41,7 @@ class Recent extends StatelessWidget {
             future: _data.getRecent(),
             builder: (BuildContext context, AsyncSnapshot<List<Post>> posts) {
               if (posts.connectionState == ConnectionState.waiting) {
-                return Text("Waiting");
+                return Center(child: Text("Loading..."));
               }
               if (posts.hasData) {
                 return Container(

@@ -30,7 +30,7 @@ class Recommded extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (BuildContext cxt) => FoodGroup(FoodMenu(
-                              foodType: FoodType.Type3,
+                              foodType: FoodType.Type8,
                               title: "Recommanded Food"))));
                 },
                 color: Colors.pink,
@@ -41,7 +41,7 @@ class Recommded extends StatelessWidget {
             future: _data.getRecom(),
             builder: (BuildContext context, AsyncSnapshot<List<Post>> posts) {
               if (posts.connectionState == ConnectionState.waiting) {
-                return Text("Waiting");
+                return Center(child: Text("Loading.."));
               }
               if (posts.hasData) {
                 return Container(
