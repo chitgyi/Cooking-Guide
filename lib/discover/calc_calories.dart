@@ -334,7 +334,7 @@ class _CalculateCalState extends State<CalculateCal> {
                           ),
                         ),
                         Text(
-                            "Tip: Recommanded minimun calories are 1500 for teenagers!")
+                            "Tip: Recommanded minimum calories are 1500 for teenagers!")
                       ],
                     ),
             ],

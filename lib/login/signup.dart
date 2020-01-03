@@ -141,7 +141,9 @@ class SignUp extends StatelessWidget {
                             tittle: 'Success',
                             desc: 'Check your e-mail inbox and verify it!',
                             dismissOnTouchOutside: false,
-                            btnOkOnPress: () {})
+                            btnOkOnPress: () {
+                              Navigator.pop(context);
+                            })
                         .show();
                   }
                 },

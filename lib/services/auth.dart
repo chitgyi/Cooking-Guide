@@ -7,7 +7,7 @@ class AuthService {
 
   User userFromFirebase(FirebaseUser user) {
     if (user != null) {
-      if (user.providerData[1].providerId.toString() == "facebook.com") {
+      if (user.providerData.last.providerId.toString() == "facebook.com") {
         return User(user.uid);
       } else {
         if (user.isEmailVerified) {
@@ -36,13 +36,15 @@ class AuthService {
   }
 
   Future signInWithFb() async {
-    await FacebookLogin().logIn(['email', 'public_profile']).then((onValue) {
+    await FacebookLogin().logIn(['public_profile', 'email']).then((onValue) {
       AuthCredential credential = FacebookAuthProvider.getCredential(
           accessToken: onValue.accessToken.token);
       FirebaseAuth.instance.signInWithCredential(credential).then((onValue) {
         userFromFirebase(onValue.user);
       });
-    }).catchError((onError) {});
+    }).catchError((onError) {
+      //print(onError);
+    });
   }
 
   Future signInAno() async {

@@ -130,6 +130,7 @@ class Login extends StatelessWidget {
                     },
                     color: Colors.blue,
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Icon(
                           FontAwesomeIcons.facebookF,
