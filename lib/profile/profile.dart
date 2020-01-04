@@ -81,7 +81,7 @@ class _ProfileState extends State<Profile> {
                                       context: context,
                                       dialogType: DialogType.INFO,
                                       animType: AnimType.BOTTOMSLIDE,
-                                      desc: 'V-IT (Group III Project)\n@Mg Chit Ye Aung(Developer)\n@Mg Kyaw Min Tun(Database)\n@Mg Sithu Lwin(UI Design)',
+                                      desc: 'V-IT (Group III Project)\n@Mg Chit Ye Aung(Developer)\n@Mg Kyaw Min Tun(Database)\n@Mg Hpone Pyae Hein(UI Design)',
                                       tittle: "About",
                                       btnOkOnPress: () {})
                                   .show();
