@@ -6,9 +6,6 @@
 - second
 - third
 
-## Screenshots
-<img src="images/screenshot/home.jpg" width="320"> 
-
 ## Getting Started
 
 > git clone https://github.com/chitgyi/Cooking-Guide.git
